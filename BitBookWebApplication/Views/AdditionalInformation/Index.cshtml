@@ -1,0 +1,168 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Additional Information</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="~/css/bitProfile.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div>
+            <div class="header1">
+                <div id="brandLogo" class="header1">
+                    <img src="/Images/bitbookLogo.gif" class="brandLogosize" />
+                </div>               
+                </div>
+        </div>
+
+        <div>
+            @using (Html.BeginForm("Index", "AdditionalInformation", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <br />
+                if (ViewBag.Message != null)
+                {
+
+                    <h3 class='alert alert-danger'>@ViewBag.Message</h3>
+                }
+                <br/>
+                <br/>
+                <br/>
+                <br />
+                <label style="font-size: 25px">Addition information</label>
+                <input type="hidden" id="SignupID" name="SignupID" value=@ViewBag.SignupID>
+                <br />
+                <input type="hidden" id="Passowrd" name="Passowrd" value=@ViewBag.Password>
+                <br />
+                <br />
+                <table>
+                    <tr>
+                        <td>
+                            <label for="ProfilePhoto">Profile Photo</label>
+                        </td>
+                        <td>
+                            <input type="file" id="ProfilePhoto" name="ProfilePhoto" style="width: 100%;" />
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="CoverPhoto">Cover Photo</label>
+                        </td>
+                        <td>
+                            <input type="file" id="CoverPhoto" name="CoverPhoto" style="width: 100%;" />
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><label for="AboutMe">About Me</label></td>
+                        <td><input type="text" id="AboutMe" name="AboutMe" /></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><label for="MobileNumber">Mobile Number</label></td>
+                        <td><input type="text" id="MobileNumber" name="MobileNumber" /></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><label for="Religion">Religion</label></td>
+                        <td><input type="text" id="Religion" name="Religion" /></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><label>Latest Education</label></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><label for="EdLevel">Education Level</label></td>
+                        <td><input type="text" id="EdLevel" name="EdLevel" /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><label for="EdName">Academy Name</label></td>
+                        <td><input type="text" id="EdName" name="EdName" /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><label for="Edyear">Education Year</label></td>
+                        <td><input type="text" id="Edyear" name="Edyear" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Latest job</label></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><label for="JobName">Company Name</label></td>
+                        <td><input type="text" id="JobName" name="JobName" /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><label for="JobPosition">Postion</label></td>
+                        <td><input type="text" id="JobPosition" name="JobPosition" /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><label for="JobBegin">Beginning Date</label></td>
+                        <td><input type="date" id="JobBegin" name="JobBegin" /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><label for="JobEnd">Ending Date</label></td>
+                        <td><input type="date" id="JobEnd" name="JobEnd" /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button id="Save" name="Save" type="submit" style="width: 100%; text-align: center; background-color: greenyellow">Save</button></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br />
+
+            }
+        </div>
+    </div>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/bootstrap-datepicker.js"></script>
+@*<script>
+    $(document)
+        .ready(function() {
+            $('#JobBegin')
+                .datepicker({
+                    format: "mm-dd-yyyy"
+                });
+        });
+    $(document)
+        .ready(function() {
+            $('#JobEnd')
+                .datepicker({
+                    format: "mm-dd-yyyy"
+                });
+        });
+</script>*@
+</body>
+</html>

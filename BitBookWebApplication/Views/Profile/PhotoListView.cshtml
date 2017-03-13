@@ -1,0 +1,198 @@
+﻿@using BitBookWebApplication.Models
+
+@{
+    Layout = null;
+    int signupID = ViewBag.SignupID;
+    string Name = ViewBag.Name;
+    List<Notification> notifications = ViewBag.NotificationList;
+
+    List<Photo> profilePhotos = ViewBag.ProfilePhotos;
+    List<Photo> coverPhotos = ViewBag.CoverPhotos;
+    List<PostInfo> postPhotos = ViewBag.PostPhotos;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Photo List View</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="~/css/bitProfile.css" rel="stylesheet"/>
+    <link href="~/css/ProfileSytle.css" rel="stylesheet"/>
+    <style>
+        div.img {
+            border: 1px solid #ccc;
+        }
+
+            div.img:hover {
+                border: 1px solid #777;
+            }
+
+            div.img img {
+                width: 100%;
+                height: auto;
+            }
+
+        div.desc {
+            padding: 15px;
+            text-align: center;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .responsive {
+            padding: 0 6px;
+            float: left;
+            width: 24.99999%;
+        }
+        .clearfix:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div>
+        <div class="header1">
+            <div id="brandLogo" class="header1">
+                <a href="@Url.Action("HomePage", "Home", new {authenticationInfo = signupID})"><img src="/Images/bitbookLogo.gif" class="brandLogosize"/></a>
+            </div>
+            <div id="searchboxstyle" class="header1">
+                <form method="post" id="SearchForm">
+                    <div class="navbar-collapse collapse" style="">
+                        <ul class="nav navbar-nav">
+                            <li><input type="text" placeholder="Search Here..." style="background-color: rosybrown; color: blue" id="SearchDetail" name="SearchDetail"/></li>
+                            <li><button class="btn" id="Search" name="action:SearchPage" style="height: 26px; border-radius: 10px; background-color: green">Search</button></li>
+                        </ul>
+                    </div>
+                </form>
+
+            </div>
+
+            <div id="profilepicsmall" class="header1">
+                <img src="/Images/profilepicsmall.png" class="profilepicsmallsize"/>
+
+                <div class="dropdown">
+                    <button class="dropbtn">@Name</button>
+                    <div class="dropdown-content">
+                        <a href="@Url.Action("ProfileView", "Profile", new {personID = signupID})">View Profile</a>
+                        <a href="@Url.Action("EditView", "Edit", new {signupIds = signupID})">Edit Profile</a>
+                        <a href="@Url.Action("SignUpView", "SignUp")">Logout</a>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="message" class="header1">
+            <a href="@Url.Action("FriendListView", "Home", new {userID = signupID})"><img src="/Images/frn.png" height="30"/></a>
+        </div>
+        <div id="notification" class="header1">
+            <div class="dropdown">
+                <button><img src="/Images/noti.png" height="30"/></button>
+                <div class="dropdown-content">
+                    @if (ViewBag.NotificationList != null)
+                    {
+                        foreach (Notification notification in notifications)
+                        {
+                            @Html.ActionLink(@notification.NotificationString, "DecideRedirectPost", "Home", new {postType = notification.Type, id = notification.TypeId}, null)
+                        }
+                    }
+                </div>
+            </div>
+
+
+        </div>
+        <div id="profilearea2" class="header1">|</div>
+        <div id="setting" class="header1">
+            <a href="@Url.Action("EditView", "Edit", new {signupIds = signupID})"><img src="/Images/set.png" height="30"/></a>
+        </div>
+        <div id="logout" class="header1">
+            <a href="@Url.Action("SignUpView", "SignUp")"><img src="/Images/lo.png" height="30"/></a>
+        </div>
+    </div>
+
+    <div>
+        <br/>
+        <br/>
+        <table>
+            <tr>
+                <td>
+                    <h2>Profile Photo of @Name</h2>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @foreach (Photo photo in profilePhotos)
+                    {
+    <div class="responsive">
+        <div class="img">
+            @if (photo.PhotoInString != null)
+            {
+                string profileImage = photo.PhotoInString;
+                <img width="300" height="200" src="@String.Format("data:image.png;base64,{0}", profileImage)" alt="ProfileImage" />
+            }
+            <div class="desc">@photo.DateTime</div>
+        </div>
+    </div>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h2>Cover Photo of @Name</h2>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @foreach (Photo photo in coverPhotos)
+                    {
+                        <div class="responsive">
+                            <div class="img">
+                                @if (photo.PhotoInString != null)
+                                {
+                                    string profileImage = photo.PhotoInString;
+                                    <img width="300" height="200" src="@String.Format("data:image.png;base64,{0}", profileImage)" alt="ProfileImage"/>
+                                }
+                                <div class="desc">@photo.DateTime</div>
+                            </div>
+                        </div>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td><h2>Post Photo of @Name</h2></td>
+            </tr>
+            <tr>
+                <td>
+                    @foreach (PostInfo postInfo in postPhotos)
+                    {
+                        <div class="responsive">
+                            <div class="img">
+                                @if (postInfo.PostPhotoInString != null)
+                                {
+                                    string profileImage = postInfo.PostPhotoInString;
+                                    <img width="300" height="200" src="@String.Format("data:image.png;base64,{0}", profileImage)" alt="ProfileImage" />
+                                }
+                                <div class="desc">@postInfo.DateTime</div>
+                            </div>
+                        </div>
+                    }
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>
